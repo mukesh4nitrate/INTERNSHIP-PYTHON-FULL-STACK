@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Management</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>User Management System</h2>
+
+<form method="POST">
+    <input type="text" name="name" placeholder="Enter Name" required>
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <button type="submit">Add User</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3" class="empty">No users yet. Add one using the form above.</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
