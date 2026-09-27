@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="auth-box">
+        <h2>Welcome, {{ user }}</h2>
+        <p>This is a protected dashboard. Only logged-in users can see this page.</p>
+        <a href="/logout" class="logout-link">Logout</a>
+    </div>
+</body>
+</html>
