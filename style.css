@@ -1,63 +1,281 @@
+/* =========================================
+   GLOBAL STYLES
+========================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --lavender: #a78bfa;
+  --purple: #8b5cf6;
+  --deep-purple: #6d28d9;
+  --text: #30294a;
+  --muted: #77718c;
+  --glass: rgba(255, 255, 255, 0.68);
+  --border: rgba(255, 255, 255, 0.75);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, #e9ddff 0, transparent 35%),
+    radial-gradient(circle at 85% 80%, #dcd5ff 0, transparent 35%),
+    linear-gradient(135deg, #f7f3ff, #eeeaff, #f9f5ff);
 }
 
-.auth-box {
-    background: white;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: center;
+/* =========================================
+   NAVIGATION BAR
+========================================= */
+/* Sticky navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
-h2 {
-    color: #1e40af;
-    margin-top: 0;
+/* Prevent anchor links from hiding under sticky navigation */
+html {
+  scroll-padding-top: 85px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 17px 7%;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 5px 25px rgba(94, 70, 150, 0.08);
 }
 
-form input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+.brand {
+  color: var(--deep-purple);
+  font-size: 21px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-form button {
-    width: 100%;
-    padding: 10px;
-    background: #1e40af;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 8px;
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-form button:hover {
-    background: #1a3691;
+.nav-links a {
+  text-decoration: none;
+  color: #554b70;
+  padding: 10px 15px;
+  border-radius: 12px;
+  transition: 0.25s ease;
 }
 
-.error {
-    color: #c0392b;
-    font-size: 14px;
+.nav-links a:hover,
+.nav-links .nav-active {
+  background: rgba(167, 139, 250, 0.18);
+  color: var(--deep-purple);
 }
 
-.switch {
-    font-size: 14px;
-    margin-top: 14px;
+/* =========================================
+   REGISTER PAGE
+========================================= */
+
+.auth-container {
+  min-height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 16px;
 }
 
-.logout-link {
-    display: inline-block;
-    margin-top: 14px;
-    color: #1e40af;
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 38px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 20px 55px rgba(91, 66, 145, 0.13),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.auth-icon {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+  color: white;
+  font-size: 25px;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+}
+
+.auth-card h1 {
+  text-align: center;
+  margin: 0 0 10px;
+  font-size: clamp(23px, 5vw, 28px);
+  color: #382d57;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-card label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #51476c;
+}
+
+.auth-card input {
+  width: 100%;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.auth-card input:focus {
+  border-color: var(--purple);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+}
+
+.auth-card button {
+  margin-top: 15px;
+  padding: 14px;
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
+  transition: 0.25s ease;
+}
+
+.auth-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.28);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: var(--deep-purple);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(254, 226, 226, 0.85);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 14px 5%;
+  }
+
+  .nav-links {
+    gap: 5px;
+  }
+
+  .nav-links a {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .auth-container {
+    min-height: calc(100svh - 60px);
+    padding: 25px 15px;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-card {
+    padding: 24px 17px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .nav-links a {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 550px) {
+  .auth-container {
+    align-items: flex-start;
+  }
+
+  .auth-card {
+    margin: 12px auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }

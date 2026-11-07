@@ -1,21 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="auth-box">
-        <h2>Register</h2>
-        {% if error %}<p class="error">{{ error }}</p>{% endif %}
-        <form method="post">
-            <input name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button>Create Account</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account | Student Portal</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="brand" href="{{ url_for('register') }}">Student Portal</a>
+
+      <div class="nav-links">
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}" class="nav-active">Register</a>
+      </div>
+    </nav>
+    {% include "_flash.html" %}
+
+    <main class="auth-container">
+      <section class="auth-card">
+        <div class="auth-icon">👤</div>
+
+        <h1>Create Account</h1>
+        <p class="subtitle">
+          Register to access the Student Management Portal.
+        </p>
+
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('register') }}">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Enter your username"
+            required
+            autocomplete="username"
+          />
+
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Create a password"
+            required
+            autocomplete="new-password"
+            minlength="8"
+            required
+          />
+          
+
+          <button type="submit">Create Account</button>
         </form>
-        <p class="switch">Already have an account? <a href="/login">Login</a></p>
-    </div>
-</body>
+
+        <p class="auth-footer">
+          Already have an account?
+          <a href="{{ url_for('login') }}">Login here</a>
+        </p>
+      </section>
+    </main>
+  </body>
 </html>

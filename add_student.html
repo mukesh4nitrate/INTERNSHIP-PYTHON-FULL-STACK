@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Student</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="brand" href="{{ url_for('dashboard') }}">Student Management</a>
+      <div class="nav-links">
+        <!-- <a href="{{ url_for('dashboard') }}">Dashboard</a> -->
+        <a href="{{ url_for('students') }}">View Students</a>
+        <a class="nav-active" href="{{ url_for('add_student') }}"
+          >Add Student</a
+        >
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </nav>
+    {% include "_flash.html" %}
+
+    <main class="auth-container">
+      <section class="auth-card">
+        <div class="auth-icon">＋</div>
+        <h1>Add New Student</h1>
+        <p class="subtitle">Enter the student's details below.</p>
+
+        <form method="POST">
+          <label for="name">Student Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Enter student name"
+            required
+          />
+
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Enter email address"
+            required
+          />
+
+          <label for="course">Course</label>
+          <input
+            id="course"
+            type="text"
+            name="course"
+            placeholder="Enter course"
+            required
+          />
+
+          <button type="submit">Add Student</button>
+        </form>
+
+        <div class="auth-footer">
+          <p><a href="{{ url_for('students') }}">View All Students</a></p>
+          <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

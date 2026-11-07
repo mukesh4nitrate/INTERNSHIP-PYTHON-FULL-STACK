@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="brand" href="{{ url_for('admin_dashboard') }}"
+        >Student Management</a
+      >
+      <div class="nav-links">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-active" href="{{ url_for('manage_users') }}"
+          >Manage Users</a
+        >
+        <a href="{{ url_for('students') }}">Students</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </nav>
+    {% include "_flash.html" %}
+
+    <main class="page-container">
+      <section class="page-heading">
+        <span class="dashboard-eyebrow">ADMINISTRATION</span>
+        <h1>Manage Users</h1>
+        <p>View registered accounts and manage their access roles.</p>
+      </section>
+
+      <section class="table-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Current Role</th>
+                <th>Change Role</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for user in users %}
+              <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                  <span class="role-badge {{ user.role }}">
+                    {{ user.role|capitalize }}
+                  </span>
+                </td>
+                <td>
+                  {% if user.id != session.get('user_id') %}
+                  <form
+                    method="POST"
+                    action="{{ url_for('manage_users') }}"
+                    class="role-form"
+                  >
+                    <input type="hidden" name="user_id" value="{{ user.id }}" />
+
+                    <select name="role">
+                        <option value="user"
+                            {% if user['role'] == 'user' %}selected{% endif %}>
+                            User
+                        </option>
+
+                        <option value="admin"
+                            {% if user['role'] == 'admin' %}selected{% endif %}>
+                            Admin
+                        </option>
+                    </select>
+
+                    <button type="submit" class="small-button">Update</button>
+                  </form>
+                  {% else %}
+                  <span class="current-account">Current account</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4" class="empty-state">No users found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <a class="back-link" href="{{ url_for('admin_dashboard') }}">
+        ← Back to Admin Dashboard
+      </a>
+    </main>
+  </body>
+</html>

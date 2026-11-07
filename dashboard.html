@@ -1,16 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="auth-box">
-        <h2>Welcome, {{ user }}</h2>
-        <p>This is a protected dashboard. Only logged-in users can see this page.</p>
-        <a href="/logout" class="logout-link">Logout</a>
-    </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a class="brand" href="{{ url_for('dashboard') }}">Student Management</a>
+
+      <div class="nav-links">
+        <!-- <a class="nav-active" href="{{ url_for('dashboard') }}">Home</a> -->
+        <a href="{{ url_for('students') }}">View Students</a>
+
+        {% if role == 'admin' %}
+        <a href="{{ url_for('add_student') }}">Add Student</a>
+        <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+        {% endif %}
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+    {% include "_flash.html" %}
+    <center>
+      <main class="dashboard-container">
+        <section class="dashboard-welcome">
+          <h1>Welcome, {{ username }}!</h1>
+          <p>Logged in as {{ role|capitalize }}. Manage and view student info.</p>
+        </section>
+
+        <h2 class="section-heading">Your Dashboard</h2>
+
+        <div class="dashboard-cards">
+          <article class="dashboard-card">
+            <div class="card-icon">👥</div>
+            <h3>View Students</h3>
+            <p>View all registered student records and their details.</p>
+            <a class="card-link" href="{{ url_for('students') }}"
+              >View Students →</a
+            >
+          </article>
+
+          {% if role == 'admin' %}
+          <article class="dashboard-card">
+            <div class="card-icon">➕</div>
+            <h3>Add Student</h3>
+            <p>Register a new student and add their information.</p>
+            <a class="card-link" href="{{ url_for('add_student') }}"
+              >Add Student →</a
+            >
+          </article>
+
+          <article class="dashboard-card">
+            <div class="card-icon">⚙️</div>
+            <h3>Admin Panel</h3>
+            <p>Manage users, roles, and student records.</p>
+            <a class="card-link" href="{{ url_for('admin_dashboard') }}"
+              >Open Admin Panel →</a
+            >
+          </article>
+          {% endif %}
+        </div>
+      </main>
+    </center>
+  </body>
 </html>
